@@ -5,11 +5,11 @@ import plotly.express as px
 st.set_page_config(layout="wide")
 st.title("Find a School that Best Fits YOU")
 
-schoolData = pd.read_csv("Cohorts/Most-Recent-Cohorts-Institution.csv")
+schoolData = pd.read_excel("Student_Admissions_Dashboard_Rd1.xlsx")
 
 # Cleaning Data
 #Keeping only totals
-mask = schoolData["school_group"].isnull()
+#mask = schoolData["school_group"].isnull()
 #??schoolData = schoolData[mask]
 
 ## Interface
