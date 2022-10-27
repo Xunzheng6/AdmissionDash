@@ -20,9 +20,17 @@ visualization=st.sidebar.radio("Select a category to narrow your path for colleg
                  options=["School Information", "Admissions", "Student Life", "Finance"])
 
 
-sizeRange=st.sidebar.slider("Select the size of the schools:",
-                            min_value=int(schoolData["tot"].min()),
-                            max_value=int(schoolData["tot"].max()),
-                            value=(int(schoolData["tot"].min()), int(schoolData["tot"].max())))
+#sizeRange=st.sidebar.slider("Select the size of the schools:",
+                            #min_value=int(schoolData["tot"].min()),
+                            #max_value=int(schoolData["tot"].max()),
+                            #value=(int(schoolData["tot"].min()), int(schoolData["tot"].max())))
 
+#FilterDataSet
+#mask=schoolData["tot"].between(sizeRange[0], sizeRange[1])
+#schoolData=schoolData[mask]
+
+## Select Schools
+selectedSchools=st.sidebar.multiselect("Select the schools to be included:",
+                                       options=schoolData["STABBR"].unique(),
+                                       default=schoolData["STABBR"].unique())
 st.write(schoolData)
