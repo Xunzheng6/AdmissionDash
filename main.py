@@ -38,10 +38,10 @@ selectedSchools=st.sidebar.multiselect("Select the states to be included:",
 
 #Finance
 if visualization=="Finance":
-    st.header("Finance")
-    df = df.rename(columns={"COSTT4_A":"Cost", "MD_EARN_WNE_INC1_P6":"Earnings", "DEBT_N":"Debt"})
-    fig = px.scatter(df, x="Cost", y="Earnings", color="Debt", hover_name="INSTNM")
-    fig.show()
+st.header("Finance")
+df = df.rename(columns={"COSTT4_A":"Cost", "MD_EARN_WNE_INC1_P6":"Earnings", "DEBT_N":"Debt"})
+fig = px.scatter(df, x="Cost", y="Earnings", color="Debt", hover_name="INSTNM")
+fig.show()
 
 #Visualization "Student Life"
 if visualization=="Student Life":
@@ -54,6 +54,16 @@ if visualization=="Student Life":
     #df.loc[df['UGDS'] < 2.e6, 'country'] = 'Other countries'  # Represent only large countries
     #fig = px.pie(df, values='UGDS', names='INSTNM', title='Race and Ethnicity of Student Body')
     #fig.show()
+
+#geo_df = gpd.read_excel("Student_Admissions_Dashboard_Rd1.xlsx")
+
+#px.set_mapbox_access_token(open(".mapbox_token").read())
+#fig = px.scatter_mapbox(geo_df,
+                       #lat=LATITUDE.y,
+                        #lon=LONGITUDE.x,
+                        #hover_name="INSTNM",
+                        #zoom=1)
+#fig.show()
 
 # Admission Requirement.
 if visualization == "Admission":
