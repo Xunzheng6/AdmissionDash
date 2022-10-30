@@ -30,7 +30,14 @@ visualization=st.sidebar.radio("Select a category to narrow your path for colleg
 #schoolData=schoolData[mask]
 
 ## Select Schools
-selectedSchools=st.sidebar.multiselect("Select the schools to be included:",
-                                       options=schoolData["STABBR"].unique(),
-                                       default=schoolData["STABBR"].unique())
+selectedSchools=st.sidebar.multiselect("Select the states to be included:",
+                                       options=schoolData["STABBR"].unique())
+
 st.write(schoolData)
+
+#Finance
+st.header("Finance")
+df = schoolData
+df = df.rename(columns={"COSTT4_A":"Cost", "MD_EARN_WNE_INC1_P6":"Earnings", "DEBT_N":"Debt"})
+fig = px.scatter(df, x="Cost", y="Earnings", color="Debt", hover_name="INSTNM")
+fig.show()
