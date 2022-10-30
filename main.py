@@ -37,7 +37,10 @@ selectedSchools=st.sidebar.multiselect("Select the states to be included:",
 
 #Admission Requirement.
 st.header("Admission Requirement")
-st.write('Please Select Your Top 5 School for Comparison')
+#max selection not working
+#Top5Selection = st.multiselect('Please Select Your Top 5 School for Comparison:',
+                               #options=schoolData["INSTNM"].unique(), max_selections=5)
+
 
 
 #Finance
