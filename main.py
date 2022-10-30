@@ -99,16 +99,24 @@ if visualization=="Student Life":
 #fig.show()
 
 # Admission Requirement.
-if visualization == "Admission":
+if visualization == "Admissions":
     st.header("Admission")
+    # max selection not working
+    # Top5Selection = st.multiselect('Please Select Your Top 5 School for Comparison:',
+    # options=schoolData["INSTNM"].unique(), max_selections=5)
     BasicInfo = schoolData[['INSTNM', 'CITY','INSTURL','ADM_RATE','SAT_AVG_ALL','ACTCMMID']]
     st.write(BasicInfo.head(5))
     fig = px.bar(schoolData, x='INSTNM', y='SATVRMID')
     st.plotly_chart(fig)
-
-
-# max selection not working
-# Top5Selection = st.multiselect('Please Select Your Top 5 School for Comparison:',
-# options=schoolData["INSTNM"].unique(), max_selections=5)
+    fig = px.bar(schoolData, x='INSTNM', y='SATMTMID')
+    st.plotly_chart(fig)
+    fig = px.bar(schoolData, x='INSTNM', y='SATWRMID')
+    st.plotly_chart(fig)
+    fig = px.bar(schoolData, x='INSTNM', y='ACTENMID')
+    st.plotly_chart(fig)
+    fig = px.bar(schoolData, x='INSTNM', y='ACTMTMID')
+    st.plotly_chart(fig)
+    fig = px.bar(schoolData, x='INSTNM', y='ACTWRMID')
+    st.plotly_chart(fig)
 
 
