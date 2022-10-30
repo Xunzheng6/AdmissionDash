@@ -92,6 +92,12 @@ if visualization=="Student Life":
                         #zoom=1)
 #fig.show()
 
+#Map
+#px.set_mapbox_access_token(open(".mapbox_token").read())
+#fig = px.scatter_mapbox(df, lat="LATITUDE", lon="LONGITUDE",  color="LOCALE2", size="UGDS")
+                  #color_continuous_scale=px.colors.cyclical.IceFire, size_max=15, zoom=10)
+#fig.show()
+
 # Admission Requirement.
 if visualization == "Admission":
     st.header("Admission")
