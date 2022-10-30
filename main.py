@@ -47,12 +47,12 @@ if visualization=="Finance":
 if visualization=="Student Life":
     st.header("Student Life")
 
-#Race/Ethncity Pie Chart
+#Race/Ethnicity Pie Chart
 #st.header("Race and Ethnicity in Schools)
 #if visualization=="Race/Ethnicity":
-    #df = px.data.gapminder().query("year == 2007").query("continent == 'Europe'")
-    #df.loc[df['pop'] < 2.e6, 'country'] = 'Other countries'  # Represent only large countries
-    #fig = px.pie(df, values='pop', names='country', title='Population of European continent')
+    #df = px.data.gapminder().query("year == 2021").query("continent == 'Europe'")
+    #df.loc[df['UGDS'] < 2.e6, 'country'] = 'Other countries'  # Represent only large countries
+    #fig = px.pie(df, values='UGDS', names='INSTNM', title='Race and Ethnicity of Student Body')
     #fig.show()
 
 # Admission Requirement.
