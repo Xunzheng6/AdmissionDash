@@ -66,6 +66,7 @@ if visualization=="Student Life":
 
 #population_summary = schoolData_population.groupby("race_ethnicity").sum()
 
+#percentage = str(round(x*100)) + '%' print(percentage)
 
 #if visualization=="Student Life":
     #col1, col2 = st.columns(2)
