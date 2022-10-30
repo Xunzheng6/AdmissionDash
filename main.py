@@ -120,3 +120,5 @@ if visualization == "Admissions":
     st.plotly_chart(fig)
 
 
+
+
