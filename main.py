@@ -68,6 +68,7 @@ if visualization=="Student Life":
 #population_summary = schoolData_population.groupby("race_ethnicity").sum()
 
 #percentage = str(round(x*100)) + '%' print(percentage)
+#
 
 #if visualization=="Student Life":
     #col1, col2 = st.columns(2)
@@ -93,7 +94,7 @@ if visualization=="Student Life":
 #fig.show()
 
 # Admission Requirement.
-if visualization == "Admission":
+if visualization == "Admissions":
     st.header("Admission")
     BasicInfo = schoolData[['INSTNM', 'CITY','INSTURL','ADM_RATE','SAT_AVG_ALL','ACTCMMID']]
     st.write(BasicInfo.head(5))
