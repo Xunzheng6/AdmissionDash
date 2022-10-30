@@ -100,6 +100,7 @@ if visualization == "Admission":
     fig = px.bar(schoolData, x='INSTNM', y='SATVRMID')
     st.plotly_chart(fig)
 
+
 # max selection not working
 # Top5Selection = st.multiselect('Please Select Your Top 5 School for Comparison:',
 # options=schoolData["INSTNM"].unique(), max_selections=5)
