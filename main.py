@@ -16,8 +16,8 @@ schoolData = pd.read_excel("Student_Admissions_Dashboard_Rd1.xlsx")
 
 st.sidebar.title("Which Program is Right for You?")
 
-visualization=st.sidebar.radio("Select a category to narrow your path for college!",
-                 options=["School Information", "Admissions", "Student Life", "Finance"])
+#visualization=st.sidebar.radio("Select a category to narrow your path for college!",
+                 #options=["School Information", "Admissions", "Student Life", "Finance"])
 
 
 #sizeRange=st.sidebar.slider("Select the size of the schools:",
@@ -30,7 +30,15 @@ visualization=st.sidebar.radio("Select a category to narrow your path for colleg
 #schoolData=schoolData[mask]
 
 ## Select Schools
-selectedSchools=st.sidebar.multiselect("Select the schools to be included:",
-                                       options=schoolData["STABBR"].unique(),
-                                       default=schoolData["STABBR"].unique())
+df = schoolData
+df = df.sort_values("STABBR")
+selectedSchools=st.sidebar.multiselect("Select the states to be included:",
+                                       options=df["STABBR"].unique())
+
 st.write(schoolData)
+
+#Finance
+st.header("Finance")
+df = df.rename(columns={"COSTT4_A":"Cost", "MD_EARN_WNE_INC1_P6":"Earnings", "DEBT_N":"Debt"})
+fig = px.scatter(df, x="Cost", y="Earnings", color="Debt", hover_name="INSTNM")
+fig.show()
