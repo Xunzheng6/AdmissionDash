@@ -97,7 +97,8 @@ if visualization == "Admission":
     st.header("Admission")
     BasicInfo = schoolData[['INSTNM', 'CITY','INSTURL','ADM_RATE','SAT_AVG_ALL','ACTCMMID']]
     st.write(BasicInfo.head(5))
-    SATMath = BasicInfo
+    fig = px.bar(schoolData, x='INSTNM', y='SATVRMID')
+    st.plotly_chart(fig)
 
 # max selection not working
 # Top5Selection = st.multiselect('Please Select Your Top 5 School for Comparison:',
