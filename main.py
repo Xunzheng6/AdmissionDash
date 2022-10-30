@@ -49,11 +49,35 @@ if visualization=="Student Life":
 
 #Race/Ethnicity Pie Chart
 #st.header("Race and Ethnicity in Schools)
-#if visualization=="Race/Ethnicity":
-    #df = px.data.gapminder().query("year == 2021").query("continent == 'Europe'")
-    #df.loc[df['UGDS'] < 2.e6, 'country'] = 'Other countries'  # Represent only large countries
-    #fig = px.pie(df, values='UGDS', names='INSTNM', title='Race and Ethnicity of Student Body')
-    #fig.show()
+
+#schoolData_population = schoolData.melt(
+    #id_vars=["UGDS"], # column that uniquely identifies a row (can be multiple_
+    #value_vars=["UGDS_WHITE", "UGDS_BLACK", "UGDS_HISP", "UGDS_ASIAN", "UGDS_AIAN", "UGDS_NHPI"],
+    #var_name="race_ethnicity", # name for the new column created by melting
+    #value_name="population" # name for new column containing values from melted columns
+#)
+
+#schoolData_population["race_ethnicity"]= schoolData_population["race_ethnicity"].replace("UGDS_WHITE", "White")
+#schoolData_population["race_ethnicity"]= schoolData_population["race_ethnicity"].replace("UGDS_BLACK", "African American")
+#schoolData_population["race_ethnicity"]= schoolData_population["race_ethnicity"].replace("UGDS_HISP", "Hispanic")
+#schoolData_population["race_ethnicity"]= schoolData_population["race_ethnicity"].replace("UGDS_ASIAN", "Asian")
+#schoolData_population["race_ethnicity"]= schoolData_population["race_ethnicity"].replace("UGDS_AIAN", "Native American")
+#schoolData_population["race_ethnicity"]= schoolData_population["race_ethnicity"].replace("UGDS_NHPI", "American Pacific Islander")
+
+#population_summary = schoolData_population.groupby("race_ethnicity").sum()
+
+
+#if visualization=="Student Life":
+    #col1, col2 = st.columns(2)
+
+    #with col1:
+        #fig = px.pie(SchoolData_population, values="population", names="race_ethnicity", title="Population Percentage per Race")
+    #st.plotly_chart(fig)
+    #st.write(population_summary)
+
+    #with col2:
+        #fig2 = px.bar(population_summary, x=population_summary.index, y="population")
+    #st.plotly_chart(fig2)
 
 #Map of School Location
 #geo_df = gpd.read_excel("Student_Admissions_Dashboard_Rd1.xlsx")
