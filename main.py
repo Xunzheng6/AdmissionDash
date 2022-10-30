@@ -17,7 +17,7 @@ schoolData = pd.read_excel("Student_Admissions_Dashboard_Rd1.xlsx")
 st.sidebar.title("Which Program is Right for You?")
 
 #visualization=st.sidebar.radio("Select a category to narrow your path for college!",
-                 options=["School Information", "Admissions", "Student Life", "Finance"])
+                 #options=["School Information", "Admissions", "Student Life", "Finance"])
 
 
 #sizeRange=st.sidebar.slider("Select the size of the schools:",
