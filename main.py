@@ -38,49 +38,22 @@ selectedSchools=st.sidebar.multiselect("Select the states to be included:",
 
 #Finance
 if visualization=="Finance":
-    st.header("Finance")
-    #schoolData['DEBT_N'] = schoolData['schoolData'].str.replace('PrivacySuppressed', "0")
-    df = df.rename(columns={"COSTT4_A":"Cost", "MD_EARN_WNE_INC1_P6":"Earnings", "DEBT_N":"Debt"})
-    fig = px.scatter(df, x="Cost", y="Earnings", color="Debt", hover_name="INSTNM")
-    st.plotly_chart(fig)
+st.header("Finance")
+df = df.rename(columns={"COSTT4_A":"Cost", "MD_EARN_WNE_INC1_P6":"Earnings", "DEBT_N":"Debt"})
+fig = px.scatter(df, x="Cost", y="Earnings", color="Debt", hover_name="INSTNM")
+fig.show()
 
 #Visualization "Student Life"
 if visualization=="Student Life":
     st.header("Student Life")
 
 #Race/Ethnicity Pie Chart
-#st.header("Race and Ethnicity in Schools")
-
-#schoolData_population = schoolData.melt(
-    #id_vars=["UGDS"], # column that uniquely identifies a row (can be multiple_
-    #value_vars=["UGDS_WHITE", "UGDS_BLACK", "UGDS_HISP", "UGDS_ASIAN", "UGDS_AIAN", "UGDS_NHPI"],
-    #var_name="race_ethnicity", # name for the new column created by melting
-    #value_name="population" # name for new column containing values from melted columns
-#)
-
-#schoolData_population["race_ethnicity"]= schoolData_population["race_ethnicity"].replace("UGDS_WHITE", "White")
-#schoolData_population["race_ethnicity"]= schoolData_population["race_ethnicity"].replace("UGDS_BLACK", "African American")
-#schoolData_population["race_ethnicity"]= schoolData_population["race_ethnicity"].replace("UGDS_HISP", "Hispanic")
-#schoolData_population["race_ethnicity"]= schoolData_population["race_ethnicity"].replace("UGDS_ASIAN", "Asian")
-#schoolData_population["race_ethnicity"]= schoolData_population["race_ethnicity"].replace("UGDS_AIAN", "Native American")
-#schoolData_population["race_ethnicity"]= schoolData_population["race_ethnicity"].replace("UGDS_NHPI", "American Pacific Islander")
-
-#population_summary = schoolData_population.groupby("race_ethnicity").sum()
-
-#percentage = str(round(x*100)) + '%' print(percentage)
-#
-
-#if visualization=="Student Life":
-    #col1, col2 = st.columns(2)
-
-    #with col1:
-        #fig = px.pie(SchoolData_population, values="population", names="race_ethnicity", title="Population Percentage per Race")
-    #st.plotly_chart(fig)
-    #st.write(population_summary)
-
-    #with col2:
-        #fig2 = px.bar(population_summary, x=population_summary.index, y="population")
-    #st.plotly_chart(fig2)
+#st.header("Race and Ethnicity in Schools)
+#if visualization=="Race/Ethnicity":
+    #df = px.data.gapminder().query("year == 2021").query("continent == 'Europe'")
+    #df.loc[df['UGDS'] < 2.e6, 'country'] = 'Other countries'  # Represent only large countries
+    #fig = px.pie(df, values='UGDS', names='INSTNM', title='Race and Ethnicity of Student Body')
+    #fig.show()
 
 #Map of School Location
 #geo_df = gpd.read_excel("Student_Admissions_Dashboard_Rd1.xlsx")
@@ -93,15 +66,18 @@ if visualization=="Student Life":
                         #zoom=1)
 #fig.show()
 
-# Admission Requirement.
-if visualization == "Admissions":
-    st.header("Admission")
-    BasicInfo = schoolData[['INSTNM', 'CITY','INSTURL','ADM_RATE','SAT_AVG_ALL','ACTCMMID']]
-    st.write(BasicInfo.head(5))
-    SATMath = BasicInfo
+#Map
+#px.set_mapbox_access_token(open(".mapbox_token").read())
+#fig = px.scatter_mapbox(df, lat="LATITUDE", lon="LONGITUDE",  color="LOCALE2", size="UGDS")
+                  #color_continuous_scale=px.colors.cyclical.IceFire, size_max=15, zoom=10)
+#fig.show()
 
+# Admission Requirement.
+if visualization == "Admission":
+    st.header("Admission")
+
+st.header("Admission Requirement")
 # max selection not working
 # Top5Selection = st.multiselect('Please Select Your Top 5 School for Comparison:',
 # options=schoolData["INSTNM"].unique(), max_selections=5)
-
 
