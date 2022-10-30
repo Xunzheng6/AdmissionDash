@@ -39,9 +39,10 @@ selectedSchools=st.sidebar.multiselect("Select the states to be included:",
 #Finance
 if visualization=="Finance":
     st.header("Finance")
+    #schoolData['DEBT_N'] = schoolData['schoolData'].str.replace('PrivacySuppressed', "0")
     df = df.rename(columns={"COSTT4_A":"Cost", "MD_EARN_WNE_INC1_P6":"Earnings", "DEBT_N":"Debt"})
     fig = px.scatter(df, x="Cost", y="Earnings", color="Debt", hover_name="INSTNM")
-    fig.show()
+    st.plotly_chart(fig)
 
 #Visualization "Student Life"
 if visualization=="Student Life":
@@ -58,9 +59,13 @@ if visualization=="Student Life":
 # Admission Requirement.
 if visualization == "Admission":
     st.header("Admission")
+    BasicInfo = schoolData[['INSTNM', 'CITY','INSTURL','ADM_RATE','SAT_AVG_ALL','ACTCMMID']]
+    st.write(BasicInfo.head(5))
+    SATMath = BasicInfo
 
-st.header("Admission Requirement")
+
 # max selection not working
 # Top5Selection = st.multiselect('Please Select Your Top 5 School for Comparison:',
 # options=schoolData["INSTNM"].unique(), max_selections=5)
+
 
