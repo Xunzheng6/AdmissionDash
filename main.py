@@ -99,7 +99,6 @@ if visualization == "Admission":
     st.write(BasicInfo.head(5))
     SATMath = BasicInfo
 
-
 # max selection not working
 # Top5Selection = st.multiselect('Please Select Your Top 5 School for Comparison:',
 # options=schoolData["INSTNM"].unique(), max_selections=5)
