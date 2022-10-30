@@ -55,6 +55,7 @@ if visualization=="Student Life":
     #fig = px.pie(df, values='UGDS', names='INSTNM', title='Race and Ethnicity of Student Body')
     #fig.show()
 
+#Map of School Location
 #geo_df = gpd.read_excel("Student_Admissions_Dashboard_Rd1.xlsx")
 
 #px.set_mapbox_access_token(open(".mapbox_token").read())
