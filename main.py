@@ -26,7 +26,7 @@ sizeRange=st.sidebar.slider("Select the size of the schools:",
                             value=(int(schoolData["UGDS"].min()), int(schoolData["UGDS"].max())))
 
 #FilterDataSet
-#mask=schoolData["tot"].between(sizeRange[0], sizeRange[1])
+#mask=schoolData["STABBR"].between(sizeRange[0], sizeRange[1])
 #schoolData=schoolData[mask]
 
 ## Select Schools
@@ -45,3 +45,16 @@ st.header("Finance")
 df = df.rename(columns={"COSTT4_A":"Cost", "MD_EARN_WNE_INC1_P6":"Earnings", "DEBT_N":"Debt"})
 fig = px.scatter(df, x="Cost", y="Earnings", color="Debt", hover_name="INSTNM")
 fig.show()
+
+#Visualization "Student Life"
+if visualization=="Student Life":
+    st.header("Student Life")
+
+#Race/Ethncity Pie Chart
+#st.header("Race and Ethnicity in Schools)
+#if visualization=="Race/Ethnicity":
+    #df = px.data.gapminder().query("year == 2007").query("continent == 'Europe'")
+    #df.loc[df['pop'] < 2.e6, 'country'] = 'Other countries'  # Represent only large countries
+    #fig = px.pie(df, values='pop', names='country', title='Population of European continent')
+    #fig.show()
+
