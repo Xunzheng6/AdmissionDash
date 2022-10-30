@@ -48,7 +48,7 @@ if visualization=="Student Life":
     st.header("Student Life")
 
 #Race/Ethnicity Pie Chart
-#st.header("Race and Ethnicity in Schools)
+#st.header("Race and Ethnicity in Schools")
 
 #schoolData_population = schoolData.melt(
     #id_vars=["UGDS"], # column that uniquely identifies a row (can be multiple_
