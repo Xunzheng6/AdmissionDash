@@ -35,13 +35,6 @@ df = df.sort_values("STABBR")
 selectedSchools=st.sidebar.multiselect("Select the states to be included:",
                                        options=df["STABBR"].unique())
 
-#Admission Requirement.
-st.header("Admission Requirement")
-#max selection not working
-#Top5Selection = st.multiselect('Please Select Your Top 5 School for Comparison:',
-                               #options=schoolData["INSTNM"].unique(), max_selections=5)
-
-
 
 #Finance
 if visualization=="Finance":
@@ -61,4 +54,13 @@ if visualization=="Student Life":
     #df.loc[df['pop'] < 2.e6, 'country'] = 'Other countries'  # Represent only large countries
     #fig = px.pie(df, values='pop', names='country', title='Population of European continent')
     #fig.show()
+
+# Admission Requirement.
+if visualization == "Admission":
+    st.header("Admission")
+
+st.header("Admission Requirement")
+# max selection not working
+# Top5Selection = st.multiselect('Please Select Your Top 5 School for Comparison:',
+# options=schoolData["INSTNM"].unique(), max_selections=5)
 
