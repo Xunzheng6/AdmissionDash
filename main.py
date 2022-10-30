@@ -38,10 +38,10 @@ selectedSchools=st.sidebar.multiselect("Select the states to be included:",
 
 #Finance
 if visualization=="Finance":
-st.header("Finance")
-df = df.rename(columns={"COSTT4_A":"Cost", "MD_EARN_WNE_INC1_P6":"Earnings", "DEBT_N":"Debt"})
-fig = px.scatter(df, x="Cost", y="Earnings", color="Debt", hover_name="INSTNM")
-fig.show()
+    st.header("Finance")
+    df = df.rename(columns={"COSTT4_A":"Cost", "MD_EARN_WNE_INC1_P6":"Earnings", "DEBT_N":"Debt"})
+    fig = px.scatter(df, x="Cost", y="Earnings", color="Debt", hover_name="INSTNM")
+    fig.show()
 
 #Visualization "Student Life"
 if visualization=="Student Life":
