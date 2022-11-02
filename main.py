@@ -102,28 +102,23 @@ if visualization=="Student Life":
 if visualization == "Admissions":
     st.header("Admissions")
     #st.header2("Please select up to 5 Universities for Comparison")
-    #st.multiselect(label=""
-    #df = schoolData
-    #df = df.sort_values("STABBR")
-    #selectedSchools = st.sidebar.multiselect("Select the states to be included:",
-                                             # options=df["STABBR"].unique())
     # max selection not working , max_selections=5
     Top5Selection = st.multiselect('Please Select Your Top 5 School for Comparison:',
                                    options=schoolData["INSTNM"].unique())
     BasicInfo = schoolData[['INSTNM', 'CITY','INSTURL','ADM_RATE','SAT_AVG_ALL','ACTCMMID']]
-    #mask = BasicInfo['INSTNM'] == Top5Selection
-    st.write(BasicInfo[0:5])
-    fig = px.bar(schoolData[0:5], x='INSTNM', y='SATVRMID')
+    mask = BasicInfo['INSTNM'].isin(Top5Selection)
+    st.write(BasicInfo[mask])
+    fig = px.bar(schoolData[mask], x='INSTNM', y='SATVRMID')
     st.plotly_chart(fig)
-    fig = px.bar(schoolData[0:5], x='INSTNM', y='SATMTMID')
+    fig = px.bar(schoolData[mask], x='INSTNM', y='SATMTMID')
     st.plotly_chart(fig)
-    fig = px.bar(schoolData[0:5], x='INSTNM', y='SATWRMID')
+    fig = px.bar(schoolData[mask], x='INSTNM', y='SATWRMID')
     st.plotly_chart(fig)
-    fig = px.bar(schoolData[0:5], x='INSTNM', y='ACTENMID')
+    fig = px.bar(schoolData[mask], x='INSTNM', y='ACTENMID')
     st.plotly_chart(fig)
-    fig = px.bar(schoolData[0:5], x='INSTNM', y='ACTMTMID')
+    fig = px.bar(schoolData[mask], x='INSTNM', y='ACTMTMID')
     st.plotly_chart(fig)
-    fig = px.bar(schoolData[0:5], x='INSTNM', y='ACTWRMID')
+    fig = px.bar(schoolData[mask], x='INSTNM', y='ACTWRMID')
     st.plotly_chart(fig)
 
 
