@@ -5,7 +5,12 @@ import plotly.express as px
 st.set_page_config(layout="wide")
 st.title("Find a School that Best Fits YOU")
 
-schoolData = pd.read_excel("Student_Admissions_Dashboard_Rd1.xlsx")
+@st.cache
+def loadData():
+    data=pd.read_excel("Student_Admissions_Dashboard_Rd1.xlsx")
+    return data
+
+schoolData = loadData()
 
 # Cleaning Data
 #Keeping only totals
@@ -26,22 +31,23 @@ sizeRange=st.sidebar.slider("Select the size of the schools:",
                             value=(int(schoolData["UGDS"].min()), int(schoolData["UGDS"].max())))
 
 #FilterDataSet
-#mask=schoolData["STABBR"].between(sizeRange[0], sizeRange[1])
-#schoolData=schoolData[mask]
+mask=schoolData["UGDS"].between(sizeRange[0], sizeRange[1])
+schoolData=schoolData[mask]
 
 ## Select Schools
-df = schoolData
-df = df.sort_values("STABBR")
+schoolData = schoolData.sort_values("STABBR")
 selectedSchools=st.sidebar.multiselect("Select the states to be included:",
-                                       options=df["STABBR"].unique())
+                                       options=schoolData["STABBR"].unique())
 
+mask=schoolData["STABBR"].isin(selectedSchools)
+schoolData=schoolData[mask]
 
 #Finance
 if visualization=="Finance":
     st.header("Finance")
     #schoolData['DEBT_N'] = schoolData['schoolData'].str.replace('PrivacySuppressed', "0")
-    df = df.rename(columns={"COSTT4_A":"Cost", "MD_EARN_WNE_INC1_P6":"Earnings", "DEBT_N":"Debt"})
-    fig = px.scatter(df, x="Cost", y="Earnings", color="Debt", hover_name="INSTNM")
+    schoolData = schoolData.rename(columns={"COSTT4_A":"Cost", "MD_EARN_WNE_INC1_P6":"Earnings", "DEBT_N":"Debt"})
+    fig = px.scatter(schoolData, x="Cost", y="Earnings", hover_name="INSTNM")
     st.plotly_chart(fig)
 
 #Visualization "Student Life"
@@ -51,25 +57,37 @@ if visualization=="Student Life":
 #Race/Ethnicity Pie Chart
 #st.header("Race and Ethnicity in Schools")
 
-#schoolData_population = schoolData.melt(
-    #id_vars=["UGDS"], # column that uniquely identifies a row (can be multiple_
-    #value_vars=["UGDS_WHITE", "UGDS_BLACK", "UGDS_HISP", "UGDS_ASIAN", "UGDS_AIAN", "UGDS_NHPI"],
-    #var_name="race_ethnicity", # name for the new column created by melting
-    #value_name="population" # name for new column containing values from melted columns
-#)
 
-#schoolData_population["race_ethnicity"]= schoolData_population["race_ethnicity"].replace("UGDS_WHITE", "White")
-#schoolData_population["race_ethnicity"]= schoolData_population["race_ethnicity"].replace("UGDS_BLACK", "African American")
-#schoolData_population["race_ethnicity"]= schoolData_population["race_ethnicity"].replace("UGDS_HISP", "Hispanic")
-#schoolData_population["race_ethnicity"]= schoolData_population["race_ethnicity"].replace("UGDS_ASIAN", "Asian")
-#schoolData_population["race_ethnicity"]= schoolData_population["race_ethnicity"].replace("UGDS_AIAN", "Native American")
-#schoolData_population["race_ethnicity"]= schoolData_population["race_ethnicity"].replace("UGDS_NHPI", "American Pacific Islander")
+if visualization=="Student Life":
+    schoolData = schoolData.sort_values("INSTNM")
+    selectedSchools=st.selectbox("Select One School",
+    options=schoolData["INSTNM"].unique())
+    mask=schoolData["INSTNM"]==selectedSchools
+    schoolData=schoolData[mask]
 
-#population_summary = schoolData_population.groupby("race_ethnicity").sum()
+    schoolData_population = schoolData.melt(
+        id_vars=["INSTNM"],  # column that uniquely identifies a row (can be multiple_
+        value_vars=["UGDS_WHITE", "UGDS_BLACK", "UGDS_HISP", "UGDS_ASIAN", "UGDS_AIAN", "UGDS_NHPI"],
+        var_name="race_ethnicity",  # name for the new column created by melting
+        value_name="population"  # name for new column containing values from melted columns
+    )
 
-#percentage = str(round(x*100)) + '%' print(percentage)
+    schoolData_population["race_ethnicity"] = schoolData_population["race_ethnicity"].replace("UGDS_WHITE", "White")
+    schoolData_population["race_ethnicity"] = schoolData_population["race_ethnicity"].replace("UGDS_BLACK",
+                                                                                              "African American")
+    schoolData_population["race_ethnicity"] = schoolData_population["race_ethnicity"].replace("UGDS_HISP", "Hispanic")
+    schoolData_population["race_ethnicity"] = schoolData_population["race_ethnicity"].replace("UGDS_ASIAN", "Asian")
+    schoolData_population["race_ethnicity"] = schoolData_population["race_ethnicity"].replace("UGDS_AIAN",
+                                                                                              "Native American")
+    schoolData_population["race_ethnicity"] = schoolData_population["race_ethnicity"].replace("UGDS_NHPI",
+                                                                                              "American Pacific Islander")
+    fig = px.pie(schoolData_population, values="population", names="race_ethnicity",
+                 title="Population Percentage per Race")
+    st.plotly_chart(fig)
+    # population_summary = schoolData_population.groupby("race_ethnicity").sum()
 
-#if visualization=="Student Life":
+    # percentage = str(round(x*100)) + '%' print(percentage)
+
     #col1, col2 = st.columns(2)
 
     #with col1:
@@ -82,15 +100,9 @@ if visualization=="Student Life":
     #st.plotly_chart(fig2)
 
 #Map of School Location
-#geo_df = gpd.read_excel("Student_Admissions_Dashboard_Rd1.xlsx")
 
-#px.set_mapbox_access_token(open(".mapbox_token").read())
-#fig = px.scatter_mapbox(geo_df,
-                       #lat=LATITUDE.y,
-                        #lon=LONGITUDE.x,
-                        #hover_name="INSTNM",
-                        #zoom=1)
-#fig.show()
+fig = px.scatter_mapbox(schoolData, lat="LATITUDE", lon="LONGITUDE", hover_name="INSTNM")
+st.plotly_chart(fig)
 
 #Map
 #px.set_mapbox_access_token(open(".mapbox_token").read())
