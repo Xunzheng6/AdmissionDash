@@ -23,7 +23,7 @@ schoolData = loadData()
 st.sidebar.title("Which Program is Right for You?")
 
 visualization=st.sidebar.radio("Select a category to narrow your path for college!",
-                 options=["School Information", "Admissions", "Student Life", "Finance"])
+                 options=["Cost & Earnings", "Admissions", "Locations", "Student Life", ])
 
 
 sizeRange=st.sidebar.slider("Select the size of the schools:",
@@ -44,8 +44,8 @@ mask=schoolData["STABBR"].isin(selectedSchools)
 schoolData=schoolData[mask]
 
 #Finance
-if visualization=="Finance":
-    st.header("Finance")
+if visualization=="Cost & Earnings":
+    st.header("Cost & Earnings")
     #schoolData['DEBT_N'] = schoolData['schoolData'].str.replace('PrivacySuppressed', "0")
     schoolData = schoolData.rename(columns={"COSTT4_A":"Cost", "MD_EARN_WNE_INC1_P6":"Earnings", "DEBT_N":"Debt"})
     fig = px.scatter(schoolData, x="Cost", y="Earnings", hover_name="INSTNM")
@@ -127,14 +127,16 @@ if visualization == "Admissions":
     fig = px.bar(schoolData[mask], x='INSTNM', y='ACTWRMID')
     st.plotly_chart(fig)
 
-if visualization == "School Information":
-    st.header("Locations")
+if visualization == "Locations":
+    st.header("Compare cities and states!")
     # Map
     fig = go.Figure(data=go.Scattergeo(
         lon=schoolData['LONGITUDE'],
         lat=schoolData['LATITUDE'],
         text=schoolData['INSTNM'],
         mode='markers',
+        marker_color=schoolData['LOCALE2'],
+
     ))
 
     fig.update_layout(
