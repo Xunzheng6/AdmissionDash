@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+import plotly.graph_objects as go
 
 st.set_page_config(layout="wide")
 st.title("Find a School that Best Fits YOU")
@@ -101,14 +102,7 @@ if visualization=="Student Life":
 
 #Map of School Location
 
-fig = px.scatter_mapbox(schoolData, lat="LATITUDE", lon="LONGITUDE", hover_name="INSTNM")
-st.plotly_chart(fig)
 
-#Map
-#px.set_mapbox_access_token(open(".mapbox_token").read())
-#fig = px.scatter_mapbox(df, lat="LATITUDE", lon="LONGITUDE",  color="LOCALE2", size="UGDS")
-                  #color_continuous_scale=px.colors.cyclical.IceFire, size_max=15, zoom=10)
-#fig.show()
 
 # Admission Requirement.
 if visualization == "Admissions":
@@ -133,8 +127,21 @@ if visualization == "Admissions":
     fig = px.bar(schoolData[mask], x='INSTNM', y='ACTWRMID')
     st.plotly_chart(fig)
 
+if visualization == "School Information":
+    st.header("Locations")
+    # Map
+    fig = go.Figure(data=go.Scattergeo(
+        lon=schoolData['LONGITUDE'],
+        lat=schoolData['LATITUDE'],
+        text=schoolData['INSTNM'],
+        mode='markers',
+    ))
 
-
+    fig.update_layout(
+        title='School Location',
+        geo_scope='usa',
+    )
+    st.plotly_chart(fig)
 
 
 
