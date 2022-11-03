@@ -35,10 +35,11 @@ sizeRange=st.sidebar.slider("Select the size of the schools:",
 mask=schoolData["UGDS"].between(sizeRange[0], sizeRange[1])
 schoolData=schoolData[mask]
 
-## Select Schools
+## Select States
 schoolData = schoolData.sort_values("STABBR")
 selectedSchools=st.sidebar.multiselect("Select the states to be included:",
-                                       options=schoolData["STABBR"].unique())
+                                       options=schoolData["STABBR"].unique(),
+                                       default=schoolData["STABBR"].unique())
 
 mask=schoolData["STABBR"].isin(selectedSchools)
 schoolData=schoolData[mask]
@@ -48,7 +49,7 @@ if visualization=="Cost & Earnings":
     st.header("Cost & Earnings")
     #schoolData['DEBT_N'] = schoolData['schoolData'].str.replace('PrivacySuppressed', "0")
     schoolData = schoolData.rename(columns={"COSTT4_A":"Cost", "MD_EARN_WNE_INC1_P6":"Earnings", "DEBT_N":"Debt"})
-    fig = px.scatter(schoolData, x="Cost", y="Earnings", hover_name="INSTNM")
+    fig = px.scatter(schoolData, x="Cost", y="Debt", color="Earnings", hover_name="INSTNM")
     st.plotly_chart(fig)
 
 #Visualization "Student Life"
