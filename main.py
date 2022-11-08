@@ -86,6 +86,19 @@ if visualization=="Student Life":
     fig = px.pie(schoolData_population, values="population", names="race_ethnicity",
                  title="Population Percentage per Race")
     st.plotly_chart(fig)
+
+#Histogram Race & Ethnicity vs Earnings
+
+    #schoolData = px.data.tips()
+    #fig = px.histogram(schoolData, x="MD_EARN_WNE_INC1_P6", color="race_ethnicity")
+    #fig.show()
+
+    #fig = px.histogram(schoolData, x="UGDS_WHITE", color="MD_EARN_WNE_INC1_P6", marginal="rug",
+                       #title="Earnings White")
+    #fig.update_layout(barmode="overlay")
+    #fig.update_traces(opacity=0.75)
+    #st.plotly_chart(fig)
+
     # population_summary = schoolData_population.groupby("race_ethnicity").sum()
 
     # percentage = str(round(x*100)) + '%' print(percentage)
