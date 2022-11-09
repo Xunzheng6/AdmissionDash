@@ -146,6 +146,8 @@ if visualization == "Admissions":
 
 if visualization == "Locations":
     st.header("Compare cities and states!")
+    st.write ("Purple and Blue Colored Locations are Urban Cities while Orange and Yellow Locations are Suburban Cities")
+
     # Map
     fig = go.Figure(data=go.Scattergeo(
         lon=schoolData['LONGITUDE'],
@@ -157,7 +159,7 @@ if visualization == "Locations":
     ))
 
     fig.update_layout(
-        title='School Locations: Purple and Blue Colored Locations are Urban Cities while Orange and Yellow Locations are Suburban Cities',
+        title='School Locations',
         geo_scope='usa',
     )
     st.plotly_chart(fig)
