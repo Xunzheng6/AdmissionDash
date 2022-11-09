@@ -13,33 +13,24 @@ def loadData():
 
 schoolData = loadData()
 
-# Cleaning Data
-#Keeping only totals
-#mask = schoolData["school_group"].isnull()
-#??schoolData = schoolData[mask]
-
 ## Interface
-
 st.sidebar.title("Which Program is Right for You?")
-
 visualization=st.sidebar.radio("Select a category to narrow your path for college!",
                  options=["Cost & Earnings", "Admissions", "Locations", "Student Life", ])
-
-
+#School size range
 sizeRange=st.sidebar.slider("Select the size of the schools:",
                             min_value=int(schoolData["UGDS"].min()),
                             max_value=int(schoolData["UGDS"].max()),
                             value=(int(schoolData["UGDS"].min()), int(schoolData["UGDS"].max())))
-
-#FilterDataSet
+#school size filter
 mask=schoolData["UGDS"].between(sizeRange[0], sizeRange[1])
 schoolData=schoolData[mask]
-
-## Select Schools
+## Select states
 schoolData = schoolData.sort_values("STABBR")
 selectedSchools=st.sidebar.multiselect("Select the states to be included:",
-                                       options=schoolData["STABBR"].unique())
-
+                                       options=schoolData["STABBR"].unique(),
+                                       default=['NY','CA'])
+#state filter
 mask=schoolData["STABBR"].isin(selectedSchools)
 schoolData=schoolData[mask]
 
@@ -54,18 +45,11 @@ if visualization=="Cost & Earnings":
 #Visualization "Student Life"
 if visualization=="Student Life":
     st.header("Student Life")
-
-#Race/Ethnicity Pie Chart
-#st.header("Race and Ethnicity in Schools")
-
-
-if visualization=="Student Life":
     schoolData = schoolData.sort_values("INSTNM")
     selectedSchools=st.selectbox("Select One School",
     options=schoolData["INSTNM"].unique())
     mask=schoolData["INSTNM"]==selectedSchools
     schoolData=schoolData[mask]
-
     schoolData_population = schoolData.melt(
         id_vars=["INSTNM"],  # column that uniquely identifies a row (can be multiple_
         value_vars=["UGDS_WHITE", "UGDS_BLACK", "UGDS_HISP", "UGDS_ASIAN", "UGDS_AIAN", "UGDS_NHPI"],
@@ -115,29 +99,49 @@ if visualization=="Student Life":
 
 #Map of School Location
 
-
-
 # Admission Requirement.
 if visualization == "Admissions":
     st.header("Admissions")
-    #st.header2("Please select up to 5 Universities for Comparison")
-    # max selection not working , max_selections=5
-    Top5Selection = st.multiselect('Please Select Your Top 5 School for Comparison:',
-                                   options=schoolData["INSTNM"].unique())
-    BasicInfo = schoolData[['INSTNM', 'CITY','INSTURL','ADM_RATE','SAT_AVG_ALL','ACTCMMID']]
-    mask = BasicInfo['INSTNM'].isin(Top5Selection)
+    st.write('Please select your top schools for comparison. '
+             'Note that not every school has shared the data with us.')
+    schoolData = schoolData.sort_values("INSTNM")
+    Top5Selection = st.multiselect('Select Schools:',
+                                   options=schoolData["INSTNM"].unique(),
+                                   default=['CUNY Bernard M Baruch College', 'New York University',
+                                            'CUNY Brooklyn College','Barnard College',
+                                            'Adelphi University',
+                                            'Columbia University in the City of New York'])
+    schoolData = schoolData.rename(columns={"INSTNM": "University Name", "INSTURL": "University Website",
+                                            "ADM_RATE": "Admission Rate","SAT_AVG_ALL": "SAT Average",
+                                            "ACTCMMID": "ACT Average","SATVRMID": "SAT Verbal","SATMTMID": "SAT Math",
+                                            "SATWRMID": "SAT Writing","ACTENMID": "ACT English","ACTMTMID": "ACT Math",
+                                            "ACTWRMID": "ACT Writing","CITY": "City"})
+
+    #schoolData['Admission Rate'].apply(lambda a:str(round(schoolData['Admission Rate'] * 100)) + '%')
+    #schoolData['ACT Average'] = schoolData['Admission Rate'].apply(lambda schoolData: round(schoolData['ACT Average']))
+    BasicInfo = schoolData[['University Name', 'City','University Website','Admission Rate',
+                            'SAT Average','ACT Average']]
+    mask = BasicInfo['University Name'].isin(Top5Selection)
     st.write(BasicInfo[mask])
-    fig = px.bar(schoolData[mask], x='INSTNM', y='SATVRMID')
+    st.subheader('SAT Scores by Subjects & Schools')
+    fig = px.bar(schoolData[mask], x='University Name', y='SAT Verbal',text_auto=True,
+                 title='SAT Verbal Score Comparison')
     st.plotly_chart(fig)
-    fig = px.bar(schoolData[mask], x='INSTNM', y='SATMTMID')
+    fig = px.bar(schoolData[mask], x='University Name', y='SAT Math',text_auto=True,
+                 title='SAT Math Score Comparison')
     st.plotly_chart(fig)
-    fig = px.bar(schoolData[mask], x='INSTNM', y='SATWRMID')
+    fig = px.bar(schoolData[mask], x='University Name', y='SAT Writing',text_auto=True,
+                 title='SAT Writing Score Comparison')
     st.plotly_chart(fig)
-    fig = px.bar(schoolData[mask], x='INSTNM', y='ACTENMID')
+    st.write('ACT Scores by Subject & Schools')
+    fig = px.bar(schoolData[mask], x='University Name', y='ACT English',text_auto=True,
+                 title='ACT English Score Comparison')
     st.plotly_chart(fig)
-    fig = px.bar(schoolData[mask], x='INSTNM', y='ACTMTMID')
+    fig = px.bar(schoolData[mask], x='University Name', y='ACT Math',text_auto=True,
+                 title='ACT Math Score Comparison')
     st.plotly_chart(fig)
-    fig = px.bar(schoolData[mask], x='INSTNM', y='ACTWRMID')
+    fig = px.bar(schoolData[mask], x='University Name', y='ACT Writing',text_auto=True,
+                 title='ACT Writing Score Comparison')
     st.plotly_chart(fig)
 
 if visualization == "Locations":
