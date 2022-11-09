@@ -116,25 +116,32 @@ if visualization == "Admissions":
                                             "ACTCMMID": "ACT Average","SATVRMID": "SAT Verbal","SATMTMID": "SAT Math",
                                             "SATWRMID": "SAT Writing","ACTENMID": "ACT English","ACTMTMID": "ACT Math",
                                             "ACTWRMID": "ACT Writing","CITY": "City"})
+
     #schoolData['Admission Rate'].apply(lambda a:str(round(schoolData['Admission Rate'] * 100)) + '%')
-    #schoolData['ACT Average'] = schoolData['Admission Rate'].apply(lambda a: round(['ACT Average']))
+    #schoolData['ACT Average'] = schoolData['Admission Rate'].apply(lambda schoolData: round(schoolData['ACT Average']))
     BasicInfo = schoolData[['University Name', 'City','University Website','Admission Rate',
                             'SAT Average','ACT Average']]
     mask = BasicInfo['University Name'].isin(Top5Selection)
     st.write(BasicInfo[mask])
-    st.write('SAT Scores by Subject & Schools')
-    fig = px.bar(schoolData[mask], x='University Name', y='SAT Verbal',text_auto=True)
+    st.subheader('SAT Scores by Subjects & Schools')
+    fig = px.bar(schoolData[mask], x='University Name', y='SAT Verbal',text_auto=True,
+                 title='SAT Verbal Score Comparison')
     st.plotly_chart(fig)
-    fig = px.bar(schoolData[mask], x='University Name', y='SAT Math',text_auto=True)
+    fig = px.bar(schoolData[mask], x='University Name', y='SAT Math',text_auto=True,
+                 title='SAT Math Score Comparison')
     st.plotly_chart(fig)
-    fig = px.bar(schoolData[mask], x='University Name', y='SAT Writing',text_auto=True)
+    fig = px.bar(schoolData[mask], x='University Name', y='SAT Writing',text_auto=True,
+                 title='SAT Writing Score Comparison')
     st.plotly_chart(fig)
     st.write('ACT Scores by Subject & Schools')
-    fig = px.bar(schoolData[mask], x='University Name', y='ACT English',text_auto=True)
+    fig = px.bar(schoolData[mask], x='University Name', y='ACT English',text_auto=True,
+                 title='ACT English Score Comparison')
     st.plotly_chart(fig)
-    fig = px.bar(schoolData[mask], x='University Name', y='ACT Math',text_auto=True)
+    fig = px.bar(schoolData[mask], x='University Name', y='ACT Math',text_auto=True,
+                 title='ACT Math Score Comparison')
     st.plotly_chart(fig)
-    fig = px.bar(schoolData[mask], x='University Name', y='ACT Writing',text_auto=True)
+    fig = px.bar(schoolData[mask], x='University Name', y='ACT Writing',text_auto=True,
+                 title='ACT Writing Score Comparison')
     st.plotly_chart(fig)
 
 if visualization == "Locations":
