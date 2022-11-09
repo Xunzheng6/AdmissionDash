@@ -157,7 +157,7 @@ if visualization == "Locations":
     ))
 
     fig.update_layout(
-        title='School Locations: Purple and Blue Colored Locations are Urban Cities while Orange and Yellow Locations are Suburban Cities",
+        title='School Locations: Purple and Blue Colored Locations are Urban Cities while Orange and Yellow Locations are Suburban Cities',
         geo_scope='usa',
     )
     st.plotly_chart(fig)
