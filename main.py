@@ -37,7 +37,8 @@ schoolData=schoolData[mask]
 #Finance
 if visualization=="Cost & Earnings":
     st.header("Cost, Debt & Earnings")
-    st.write('Note: Some of the data are not available for the schools')
+    st.write('Use the sidebar to filter schools')
+    st.write('Note: Some data are not available for the schools')
     #schoolData['DEBT_N'] = schoolData['schoolData'].str.replace('PrivacySuppressed', "0")
     schoolData = schoolData.rename(columns={"COSTT4_A":"Cost", "MD_EARN_WNE_INC1_P6":"Earnings", "DEBT_N":"Debt"})
     fig = px.scatter(schoolData, x="Earnings", y="Debt", color = "Cost", hover_name="INSTNM")
