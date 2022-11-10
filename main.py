@@ -16,7 +16,7 @@ schoolData = loadData()
 ## Interface
 st.sidebar.title("Which Program is Right for You?")
 visualization=st.sidebar.radio("Select a category to narrow your path for college!",
-                 options=["Cost & Earnings", "Admissions", "Locations", "Student Life", ])
+                 options=["Cost, Debt & Earnings", "Admissions", "Locations", "Student Life", ])
 #School size range
 sizeRange=st.sidebar.slider("Select the size of the schools:",
                             min_value=int(schoolData["UGDS"].min()),
@@ -35,11 +35,11 @@ mask=schoolData["STABBR"].isin(selectedSchools)
 schoolData=schoolData[mask]
 
 #Finance
-if visualization=="Cost & Earnings":
+if visualization=="Cost, Debt & Earnings":
     st.header("Cost, Debt & Earnings")
     st.write('Use the sidebar to filter schools')
     st.write('Note: Some data are not available for the schools')
-    #schoolData['DEBT_N'] = schoolData['schoolData'].str.replace('PrivacySuppressed', "0")
+    #schoolData['DEBT_N'] = schoolData['schoolData'].replace('PrivacySuppressed', "0")
     schoolData = schoolData.rename(columns={"COSTT4_A":"Cost", "MD_EARN_WNE_INC1_P6":"Earnings", "DEBT_N":"Debt"})
     fig = px.scatter(schoolData, x="Earnings", y="Debt", color = "Cost", hover_name="INSTNM")
     st.plotly_chart(fig)
