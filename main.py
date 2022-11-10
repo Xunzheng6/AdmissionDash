@@ -29,7 +29,7 @@ schoolData=schoolData[mask]
 schoolData = schoolData.sort_values("STABBR")
 selectedSchools=st.sidebar.multiselect("Select the states to be included:",
                                        options=schoolData["STABBR"].unique(),
-                                       default=['NY','CA'])
+                                       default=schoolData["STABBR"].unique())
 #state filter
 mask=schoolData["STABBR"].isin(selectedSchools)
 schoolData=schoolData[mask]
