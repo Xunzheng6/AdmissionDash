@@ -36,10 +36,11 @@ schoolData=schoolData[mask]
 
 #Finance
 if visualization=="Cost & Earnings":
-    st.header("Cost & Earnings")
+    st.header("Cost, Debt & Earnings")
+    st.write('Note: Some of the data are not available for the schools')
     #schoolData['DEBT_N'] = schoolData['schoolData'].str.replace('PrivacySuppressed', "0")
     schoolData = schoolData.rename(columns={"COSTT4_A":"Cost", "MD_EARN_WNE_INC1_P6":"Earnings", "DEBT_N":"Debt"})
-    fig = px.scatter(schoolData, x="Cost", y="Earnings", hover_name="INSTNM")
+    fig = px.scatter(schoolData, x="Earnings", y="Debt", color = "Cost", hover_name="INSTNM")
     st.plotly_chart(fig)
 
 #Visualization "Student Life"
@@ -154,7 +155,7 @@ if visualization == "Locations":
         lat=schoolData['LATITUDE'],
         text=schoolData['INSTNM'],
         mode='markers',
-        marker_color=schoolData['LOCALE2'],
+        marker_color=schoolData['LOCALE2']
 
     ))
 
