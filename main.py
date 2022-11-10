@@ -124,7 +124,7 @@ if visualization == "Admissions":
     BasicInfo = schoolData[['University Name', 'City','University Website','Admission Rate',
                             'SAT Average','ACT Average']]
     mask = BasicInfo['University Name'].isin(Top5Selection)
-    st.write(BasicInfo[mask])
+    st.dataframe(BasicInfo[mask])
     st.subheader('SAT Scores by Subjects & Schools')
     fig = px.bar(schoolData[mask], x='University Name', y='SAT Verbal',text_auto=True,
                  title='SAT Verbal Score Comparison')
